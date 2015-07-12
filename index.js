@@ -125,7 +125,7 @@ function start (callback) {
               userEnv.PORT = webPort;
               userEnv.BIND_IP = '127.0.0.1';
               userEnv.DB_PATH = dataPath;
-              userEnv.MONGO_URL = 'mongodb://localhost:' + mongoPort + '/meteor';
+              userEnv.MONGO_URL = "mongodb://localhost:" + mongoPort + "/meteor";
               // user_env.METEOR_SETTINGS = fs.readFileSync(path.join(dirname, 'resources', 'settings.json'), 'utf8');
               userEnv.DIR = dirname;
               userEnv.NODE_ENV = 'production';
