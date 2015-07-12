@@ -1,5 +1,5 @@
 environment:
-  nodejs_version: "0.12"
+  nodejs_version: "0.10.36"
 
 branches:
   only:
@@ -28,7 +28,7 @@ build_script:
   - npm run pack:win
 
 after_build:
-  - 7z a ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer.zip %APPVEYOR_BUILD_FOLDER%\dist\windows\x86\ElectronMeteor Setup.exe
+  - 7z a ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer.zip "%APPVEYOR_BUILD_FOLDER%\dist\windows\x86\ElectronMeteor Setup.exe"
 
 deploy:
   provider: GitHub
