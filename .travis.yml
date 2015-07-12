@@ -23,8 +23,6 @@ install:
   - curl https://install.meteor.com/ | /bin/sh
   # setup ElectronMeteor
   - npm install
-  - nvm install 0.12.7
-  - nvm use 0.12.7
 
 script:
   # Pack and build
