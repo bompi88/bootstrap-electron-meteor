@@ -112,6 +112,11 @@ function start (callback) {
             console.log(data);
 
             if (data.indexOf('waiting for connections on port ' + mongoPort)) {
+              console.log("HMMMM");
+              console.log('waiting for connections on port ' + mongoPort);
+              console.log(data.indexOf('waiting for connections on port ' + mongoPort));
+              console.log(data);
+              
               if (!started) {
                 started = true;
               } else {
