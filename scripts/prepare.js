@@ -103,7 +103,7 @@ function copyBinaryFiles(os, architecture) {
     case 'win32':
     case 'linux':
     case 'darwin':
-      mkdir('-p', './app/resources');
+      mkdir('./app/resources');
       var nodePostfix = (platform === 'win32') ? 'node.exe' : 'bin/node';
       var mongodbPostfix = (platform === 'win32') ? 'mongod.exe' : 'mongod';
       cp('./cache/' + 'node-' + os + '-' + architecture + '/' + nodePostfix, './app/resources/');
