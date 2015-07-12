@@ -22,11 +22,12 @@ install:
   # Install meteor
   - curl https://install.meteor.com/ | /bin/sh
   # setup ElectronMeteor
-  - npm run setup
+  - npm install
 
 script:
   # Pack and build
-  - npm run pack:linux
+  - npm run build:linux
+  # - npm run build:osx
   # - npm run pack:osx
   # zip it up
   # Linux

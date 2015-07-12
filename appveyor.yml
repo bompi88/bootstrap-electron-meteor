@@ -11,15 +11,13 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # Setup
-  - npm run setup
+  - npm install
   # download Meteor
   - ps: Start-FileDownload 'https://s3.amazonaws.com/meteor-windows/InstallMeteor.exe'
   # install meteor
   - .\installMeteor.exe /passive
   # download NSIS
   - ps: choco install -y nsis -pre
-  # Update node
-  - ps: Update-NodeJsInstallation 0.12.7
   # Restart
   - ps: Start-Sleep -s 5
   - ps: Restart-Computer -Force
@@ -27,6 +25,9 @@ install:
 build_script:
   - ps: Start-Sleep -s 5
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
+  - npm run build:win
+  # Update node
+  - ps: Update-NodeJsInstallation 0.12.7
   - npm run pack:win
 
 after_build:
