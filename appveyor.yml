@@ -3,7 +3,8 @@ environment:
 
 branches:
   only:
-    - /master_v\d+\.\d+\.\d+/
+    - master
+    - /v\d+\.\d+\.\d+/
 
 install:
   # Get the latest stable version of Node.js or io.js
