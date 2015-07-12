@@ -32,6 +32,8 @@ build_script:
 
 after_build:
   - 7z a ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer.zip "%APPVEYOR_BUILD_FOLDER%\dist\windows\x86\ElectronMeteor Setup.exe"
+  - dir
+  - dir "%APPVEYOR_BUILD_FOLDER%\dist\windows\x86\"
 
 deploy:
   provider: GitHub
