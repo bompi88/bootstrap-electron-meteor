@@ -27,8 +27,8 @@ build_script:
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - npm run pack:win
 
-cache:
-  - cache
+after_build:
+  - 7z a ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer.zip %APPVEYOR_BUILD_FOLDER%\dist\windows\x86\ElectronMeteor Setup.exe
 
 deploy:
   provider: GitHub
@@ -46,6 +46,5 @@ artifacts:
   - path: dist\windows\x86\ElectronMeteor-win32-ia32
     name: ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32
 
-  - path: dist\windows\x86\ElectronMeteor Setup.exe
+  - path: ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer.zip
     name: ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer
-    type: zip
