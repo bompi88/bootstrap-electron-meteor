@@ -111,12 +111,12 @@ function start (callback) {
           mongoChild.stdout.on('data', function (data) {
             console.log(data);
 
-            if (data.indexOf('waiting for connections on port ' + mongoPort)) {
+            if (data.indexOf('waiting for connections on port ' + mongoPort) !== -1) {
               console.log("HMMMM");
               console.log('waiting for connections on port ' + mongoPort);
               console.log(data.indexOf('waiting for connections on port ' + mongoPort));
               console.log(data);
-              
+
               if (!started) {
                 started = true;
               } else {
