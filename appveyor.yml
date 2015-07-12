@@ -27,7 +27,8 @@ build_script:
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - node scripts/download --platform=win32 --arch=x86
   - node scripts/prepare --platform=win32 --arch=x86
-  - npm run build:win
+  - electron-packager ./app "ElectronMeteor" --out=dist/windows/x86 --platform=win32 --arch=ia32 --version=0.27.2 --icon=assets/icons/electronmeteor.ico --ignore="node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)
+  #- npm run build:win
   # Update node
   - ps: Update-NodeJsInstallation 0.12.7
   - npm run pack:win

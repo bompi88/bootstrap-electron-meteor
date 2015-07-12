@@ -28,6 +28,8 @@ script:
   # Pack and build
   - npm run build:linux
   # - npm run build:osx
+  # - nvm install 0.12.7
+  # - nvm use 0.12.7
   # - npm run pack:osx
   # zip it up
   # Linux
