@@ -33,7 +33,7 @@ script:
   # - npm run pack:osx
   # zip it up
   # Linux
-  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz dist/linux/x64/ElectronMeteor-linux-x64
+  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz -C dist/linux/x64/ElectronMeteor-linux-x64 .
   # Mac
   # - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz dist/linux/x64/ElectronMeteor.dmg
 
