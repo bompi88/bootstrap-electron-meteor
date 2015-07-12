@@ -1,55 +1,37 @@
 language: node_js
 node_js:
-  - "0.10.36"
+  - 0.10.36
 
 sudo: required
 
-# multiple oses when nodejs env comes to osx on travis
-#os:
-#  - linux
-#  - osx
-
 branches:
   only:
-    # only tags on the form vx.x.x or vx.x.xxx and so on
     - /v\d+\.\d+\.\d+/
 
 before_install:
   - export ARCH=$(uname -m)
 
-# Install scripts.
 install:
-  # Install meteor
   - curl https://install.meteor.com/ | /bin/sh
-  # setup ElectronMeteor
   - npm install
 
 script:
-  # Pack and build
   - npm run build:linux
-  # - npm run build:osx
-  # - nvm install 0.12.7
-  # - nvm use 0.12.7
-  # - npm run pack:osx
-  # zip it up
-  # Linux
-  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz -C dist/linux/x64/ElectronMeteor-linux-x64 .
-  # Mac
-  # - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz dist/linux/x64/ElectronMeteor.dmg
+  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz -C dist/linux/x64/ElectronMeteor-linux-x64
 
 cache:
   directories:
-  - cache
+    - cache
 
 deploy:
   provider: releases
-  api_key: "c84e543eaa4e8315483285da7e40f8a18c7330df"
   file:
-    - "ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz"
-    # - "ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz"
+    - ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz
   skip_cleanup: true
   on:
     tags: true
+  api-key:
+    secure: PlwojMiGqXgI4pLHQfXPwpotMa/hQdka5qpalFH5uiLXArRyjKwMUuKBZaMwl2jjQ4FX0PxS9Fo4FS4JJYCqVs0jnXDZw/6T/Fs1W58rxj9NkCFt9aDEizAgEURm5DrdevrfJN4Hf5zwjwbLp/L3dL4uGV7J/kcBTQ26B/rYXzlHX0VAwkMRx6sscpx0oImloJk0SFcAZBfhxOmwvTF9kq9ecuclPYdIQjkz2R1DVJ2dRw3dy+Vb08U+88idVZg3s78U/xFfl1cFNNlw3OkJ66kryYfLHacZ/t40SIrRac+KvMQXrSfZ4n4CwMdXdQJheRSS6QXWTWH0q5iC4XbLvVJ9h/4kribpsbqz7EPcdsBhdyxM4gggSC1+1tr0c5tmVfVYFyAEMj8gnPX4dIj9bxU3AMsWeyIDmi8m/drnez8SazG0ZR6hk663f4BfjY0W4Zr7vgXeWXzwI+REpDZ0mHAHCK5fxpAunVXHstYjdqbjl6Yh80gwdaN/eo5xaYegc/hAD4pCcCVc0hgjkimome6AnsLLzuyEnmLJBZpFSaXrnorbsbNc5cy/p2NBvMs6WqBzBlHEsMcjekyvEXdp9oYxldrraXU6qgrX4iFKrtJ8VE+WT2arLDtQbMJwk7mPBdy1IsesKE4qDulmZAlp20AIlhYygPQ9FaZNgo5i9ro=
 
 notifications:
   email:
