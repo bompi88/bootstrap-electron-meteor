@@ -19,7 +19,6 @@ $
 $
 ```
 
-
 ## Development
 Not much is required to set it up for development, you should be up and running in no time. Let's go through the steps.
 
