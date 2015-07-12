@@ -22,18 +22,22 @@ script:
   - npm run pack:linux
   # zip it up
   # Linux
-  - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-linux-x86.tar.gz dist/linux/x86/ElectronMeteor-linux-x86
+  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-linux-x86.tar.gz dist/linux/x86/ElectronMeteor-linux-x86
   # Windows
   # - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-win32-ia32.tar.gz dist/windows/ElectronMeteor-win32-ia32
   # - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-win32-ia32-installer.tar.gz dist/windows/ElectronMeteor\ Setup.exe
   # Mac
   # - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-darwin-x64.tar.gz dist/linux/ElectronMeteor.dmg
 
+cache:
+  directories:
+  - cache
+
 deploy:
   provider: releases
   api_key: "c84e543eaa4e8315483285da7e40f8a18c7330df"
   file:
-    - "ElectronMeteor-v${TRAVIS_TAG}-linux-x86.tar.gz"
+    - "ElectronMeteor-${TRAVIS_TAG}-linux-x86.tar.gz"
     # - "ElectronMeteor-v${TRAVIS_TAG}-win32-ia32.tar.gz"
     # - "ElectronMeteor-v${TRAVIS_TAG}-win32-ia32-installer.tar.gz"
     # - "ElectronMeteor-v${TRAVIS_TAG}-darwin-x64.tar.gz"

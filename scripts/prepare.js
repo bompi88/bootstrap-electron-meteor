@@ -112,7 +112,7 @@ rmdir(base + '/app', {
       case 'linux':
       case 'darwin':
         mkdir('-p', './app/resources');
-        var nodePostfix = (platform === 'win32') ? 'node.exe' : '/bin/node';
+        var nodePostfix = (platform === 'win32') ? 'node.exe' : 'bin/node';
         var mongodbPostfix = (platform === 'win32') ? 'mongod.exe' : 'mongod';
         cp('./cache/' + 'node-' + os + '-' + architecture + '/' + nodePostfix, './app/resources/');
         cp('./cache/' + 'mongodb-' + os + '-' + architecture + '/bin/' + mongodbPostfix, './app/resources/');
