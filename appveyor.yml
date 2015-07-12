@@ -7,7 +7,7 @@ clone_folder: C:\gv
 
 branches:
   only:
-    - prod
+    - master
     - /v\d+\.\d+\.\d+/
 
 # Install scripts. (runs after repo cloning)
@@ -26,7 +26,10 @@ install:
 
 build_script:
   - ps: Start-Sleep -s 5
-  - node run pack:win
+  - npm run pack:win
+
+cache:
+  - cache
 
 deploy:
   provider: GitHub
