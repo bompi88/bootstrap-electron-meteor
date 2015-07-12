@@ -1,0 +1,8 @@
+meteor/.meteor/local
+node_modules/*
+resources/*
+cache
+dist
+bundle
+.DS_Store
+app
