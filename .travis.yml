@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "0.12"
+  - "0.10.36"
 
 sudo: required
 
@@ -23,6 +23,7 @@ install:
   - curl https://install.meteor.com/ | /bin/sh
   # setup ElectronMeteor
   - npm install
+  - nvm use 0.12.7
 
 script:
   # Pack and build
