@@ -1,14 +1,21 @@
-# Test against this version of Node.js
 language: node_js
 node_js:
   - "0.12"
 
 sudo: required
 
+# multiple oses
+#os:
+#  - linux
+#  - osx
+
 branches:
   only:
     # only tags on the form vx.x.x or vx.x.xxx and so on
     - /v\d+\.\d+\.\d+/
+
+before_install:
+  - export ARCH=$(uname -m)
 
 # Install scripts.
 install:
@@ -20,14 +27,12 @@ install:
 script:
   # Pack and build
   - npm run pack:linux
+  # - npm run pack:osx
   # zip it up
   # Linux
-  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-linux-x86.tar.gz dist/linux/x86/ElectronMeteor-linux-x86
-  # Windows
-  # - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-win32-ia32.tar.gz dist/windows/ElectronMeteor-win32-ia32
-  # - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-win32-ia32-installer.tar.gz dist/windows/ElectronMeteor\ Setup.exe
+  - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz dist/linux/x86/ElectronMeteor-linux-ia32
   # Mac
-  # - tar -zcf ElectronMeteor-v${TRAVIS_TAG}-darwin-x64.tar.gz dist/linux/ElectronMeteor.dmg
+  # - tar -zcf ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz dist/linux/x64/ElectronMeteor.dmg
 
 cache:
   directories:
@@ -37,10 +42,8 @@ deploy:
   provider: releases
   api_key: "c84e543eaa4e8315483285da7e40f8a18c7330df"
   file:
-    - "ElectronMeteor-${TRAVIS_TAG}-linux-x86.tar.gz"
-    # - "ElectronMeteor-v${TRAVIS_TAG}-win32-ia32.tar.gz"
-    # - "ElectronMeteor-v${TRAVIS_TAG}-win32-ia32-installer.tar.gz"
-    # - "ElectronMeteor-v${TRAVIS_TAG}-darwin-x64.tar.gz"
+    - "ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz"
+    # - "ElectronMeteor-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${ARCH}.tar.gz"
   skip_cleanup: true
   on:
     tags: true
