@@ -113,7 +113,8 @@
 
       // Require
       "require": false,
-
+      "__dirname": false,
+      
       // Meteor internals
       "DDPServer": false,
       "global": false,

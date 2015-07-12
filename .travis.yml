@@ -4,7 +4,7 @@ node_js:
 
 sudo: required
 
-# multiple oses
+# multiple oses when nodejs env comes to osx on travis
 #os:
 #  - linux
 #  - osx

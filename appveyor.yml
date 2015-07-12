@@ -6,7 +6,6 @@ branches:
     - master
     - /v\d+\.\d+\.\d+/
 
-# Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
@@ -25,18 +24,13 @@ install:
 build_script:
   - ps: Start-Sleep -s 5
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
-  - npm i electron-packager -g
-  - node scripts/download --platform=win32 --arch=x86
-  - node scripts/prepare --platform=win32 --arch=x86
-  - electron-packager ./app "ElectronMeteor" --out=dist/windows/x86 --platform=win32 --arch=ia32 --version=0.27.2 --icon=assets/icons/electronmeteor.ico --ignore="node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)
-  #- npm run build:win
+  - npm run build:win
   # Update node
   - ps: Update-NodeJsInstallation 0.12.7
   - npm run pack:win
 
 after_build:
   - 7z a ElectronMeteor-%APPVEYOR_REPO_TAG_NAME%-win32-ia32-installer.zip "%APPVEYOR_BUILD_FOLDER%\dist\windows\x86\ElectronMeteor Setup.exe"
-  - dir
 
 deploy:
   provider: GitHub
@@ -49,8 +43,6 @@ deploy:
     appveyor_repo_tag: true
 
 artifacts:
-
-  # pushing a single file with environment variable in path and "Deployment name" specified
   - path: dist\windows\x86\ElectronMeteor-win32-ia32
     name: ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32
 

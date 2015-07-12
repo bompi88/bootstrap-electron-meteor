@@ -6,8 +6,9 @@
 
 require('shelljs/global');
 require('colors');
-var path = require('path');
-var AdmZip = require('adm-zip');
+
+var path = require('path'),
+    AdmZip = require('adm-zip');
 
 // Auto-exit on errors
 config.fatal = true;
@@ -16,8 +17,7 @@ config.fatal = true;
 var dir = __dirname;
 var base = path.normalize(path.join(dir, '..'));
 
-var mongoVersion = '2.6.9';
-var electronVersion = '0.25.1';
+var electronVersion = '0.27.2';
 
 // -- Platform and arch detection ----------------------------------------------
 

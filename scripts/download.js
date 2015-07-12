@@ -6,12 +6,12 @@
 
 require('shelljs/global');
 require('colors');
-var path = require('path');
-var rmdir = require('rimraf');
-var AdmZip = require('adm-zip');
-var tar = require('tar');
-var fs = require('fs');
-var gunzip = require('gunzip-maybe');
+
+var path = require('path'),
+    AdmZip = require('adm-zip'),
+    tar = require('tar'),
+    fs = require('fs'),
+    gunzip = require('gunzip-maybe');
 
 var nodeVersion = '0.10.36';
 var mongoVersion = '2.6.9';

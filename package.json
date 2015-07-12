@@ -10,6 +10,7 @@
     "gunzip-maybe": "^1.2.1",
     "rimraf": "^2.4.1",
     "minimist": "^1.1.1",
+    "fs-extra": "^0.22.1",
     "electron-prebuilt": "^0.27.2",
     "electron-rebuild": "^0.1.4",
     "electron-builder": "^2.0.0",
@@ -28,11 +29,15 @@
     "clean:win": "node scripts/clean --platform=win32 --arch=x86",
     "clean:linux": "node scripts/clean --platform=linux --arch=x86",
 
-    "build:osx": "node scripts/download --platform=darwin --arch=x64 && node scripts/prepare --platform=darwin --arch=x64 && npm run clean:osx && electron-packager ./app \"ElectronMeteor\" --out=dist/osx/x64 --platform=darwin --arch=x64 --version=0.27.2 --icon=assets/icons/electronmeteor.icns --ignore=\"node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)\"",
-    "build:linux": "node scripts/download --platform=linux --arch=x64 && node scripts/prepare --platform=linux --arch=x64 && npm run clean:linux && electron-packager ./app \"ElectronMeteor\" --out=dist/linux/x64 --platform=linux --arch=x64 --version=0.27.2 --icon=assets/icons/electronmeteor.ico --ignore=\"node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)\"",
-    "build:win": "node scripts/download --platform=win32 --arch=x86 && node scripts/prepare --platform=win32 --arch=x86 && npm run clean:win && electron-packager ./app \"ElectronMeteor\" --out=dist/windows/x86 --platform=win32 --arch=ia32 --version=0.27.2 --icon=assets/icons/electronmeteor.ico --ignore=\"node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)\"",
+    "build:osx": "node scripts/download --platform=darwin --arch=x64 && node scripts/prepare --platform=darwin --arch=x64 && npm run clean:osx && electron-packager ./app \"ElectronMeteor\" --out=dist/osx/x64 --platform=darwin --arch=x64 --version=0.27.2 --icon=assets/icons/electronmeteor.icns --ignore=\"node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|fs-extra|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)\"",
+    "build:linux": "node scripts/download --platform=linux --arch=x64 && node scripts/prepare --platform=linux --arch=x64 && npm run clean:linux && electron-packager ./app \"ElectronMeteor\" --out=dist/linux/x64 --platform=linux --arch=x64 --version=0.27.2 --icon=assets/icons/electronmeteor.ico --ignore=\"node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|fs-extra|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)\"",
+    "build:win": "node scripts/download --platform=win32 --arch=x86 && node scripts/prepare --platform=win32 --arch=x86 && npm run clean:win && electron-packager ./app \"ElectronMeteor\" --out=dist/windows/x86 --platform=win32 --arch=ia32 --version=0.27.2 --icon=assets/icons/electronmeteor.ico --ignore=\"node_modules/(shelljs|colors|adm-zip|tar|gunzip-maybe|rimraf|minimist|fs-extra|electron-packager|electron-builder|electron-prebuilt|electron-rebuild)\"",
 
     "pack:osx": "electron-builder \"dist/osx/x64/ElectronMeteor-darwin-x64/ElectronMeteor.app\" --platform=osx --out=\"dist/osx/x64\" --config=packager.json",
-    "pack:win": "electron-builder \"dist/windows/x86/ElectronMeteor-win32-ia32\" --platform=win --out=\"dist/windows/x86\" --config=packager.json"
+    "pack:win": "electron-builder \"dist/windows/x86/ElectronMeteor-win32-ia32\" --platform=win --out=\"dist/windows/x86\" --config=packager.json",
+
+    "osx": "npm run build:osx && npm run pack:osx",
+    "linux": "npm run build:linux",
+    "win": "npm run build:win && npm run pack:win"
   }
 }

@@ -6,11 +6,9 @@
 
 require('shelljs/global');
 require('colors');
-var path = require('path');
-var rmdir = require('rimraf');
 
-var nodeVersion = '0.10.36';
-var mongoVersion = '2.6.9';
+var path = require('path'),
+    fs = require('fs-extra');
 
 // Auto-exit on errors
 config.fatal = true;
@@ -65,73 +63,65 @@ cd(base);
 
 // -- Copy all necessary stuff into ./app directory ----------------------------
 
-rmdir(base + '/app', {
-  maxBusyTries: 10
-}, function(error) {
+fs.removeSync('./app');
 
-  if (error) {
-    console.log(error);
+mkdir('./app');
+
+function copyMeteorBundle(os) {
+  switch (os) {
+
+    case 'win32':
+    case 'linux':
+    case 'darwin':
+      mv('bundle', './app/bundle');
+      break;
+
+    default:
+      throw new Error('Unrecognized Operating System. Exiting...'.bold.red);
   }
+}
 
-  mkdir('./app');
+function copyStartupFiles(os) {
+  switch (os) {
 
-  function copyMeteorBundle(os) {
-    switch (os) {
+    case 'win32':
+    case 'linux':
+    case 'darwin':
+      cp('./index.js', './app/');
+      cp('./package.json', './app/');
+      cp('-R', './node_modules', './app/');
+      break;
 
-      case 'win32':
-      case 'linux':
-      case 'darwin':
-        mv('bundle', './app/bundle');
-        break;
-
-      default:
-        throw new Error('Unrecognized Operating System. Exiting...'.bold.red);
-    }
+    default:
+      throw new Error('Unrecognized Operating System. Exiting...'.bold.red);
   }
+}
 
-  function copyStartupFiles(os) {
-    switch (os) {
+function copyBinaryFiles(os, architecture) {
+  switch (os) {
 
-      case 'win32':
-      case 'linux':
-      case 'darwin':
-        cp('./index.js', './app/');
-        cp('./package.json', './app/');
-        cp('-R', './node_modules', './app/');
-        break;
+    case 'win32':
+    case 'linux':
+    case 'darwin':
+      mkdir('-p', './app/resources');
+      var nodePostfix = (platform === 'win32') ? 'node.exe' : 'bin/node';
+      var mongodbPostfix = (platform === 'win32') ? 'mongod.exe' : 'mongod';
+      cp('./cache/' + 'node-' + os + '-' + architecture + '/' + nodePostfix, './app/resources/');
+      cp('./cache/' + 'mongodb-' + os + '-' + architecture + '/bin/' + mongodbPostfix, './app/resources/');
+      break;
 
-      default:
-        throw new Error('Unrecognized Operating System. Exiting...'.bold.red);
-    }
+    default:
+      throw new Error('Unrecognized Operating System. Exiting...'.bold.red);
   }
+}
 
-  function copyBinaryFiles(os, architecture) {
-    switch (os) {
+// Move necessary files
 
-      case 'win32':
-      case 'linux':
-      case 'darwin':
-        mkdir('-p', './app/resources');
-        var nodePostfix = (platform === 'win32') ? 'node.exe' : 'bin/node';
-        var mongodbPostfix = (platform === 'win32') ? 'mongod.exe' : 'mongod';
-        cp('./cache/' + 'node-' + os + '-' + architecture + '/' + nodePostfix, './app/resources/');
-        cp('./cache/' + 'mongodb-' + os + '-' + architecture + '/bin/' + mongodbPostfix, './app/resources/');
-        break;
+echo('-----> Copying Meteor bundle into ./app ...'.yellow);
+copyMeteorBundle(platform, arch);
 
-      default:
-        throw new Error('Unrecognized Operating System. Exiting...'.bold.red);
-    }
-  }
+echo('-----> Copying startup files into ./app ...'.yellow);
+copyStartupFiles(platform, arch);
 
-  // Start creation process
-
-  echo('-----> Copying Meteor bundle into ./app ...'.yellow);
-  copyMeteorBundle(platform, arch);
-
-  echo('-----> Copying startup files into ./app ...'.yellow);
-  copyStartupFiles(platform, arch);
-
-  echo('-----> Copying binary files into ./app ...'.yellow);
-  copyBinaryFiles(platform, arch);
-
-});
+echo('-----> Copying binary files into ./app ...'.yellow);
+copyBinaryFiles(platform, arch);

@@ -6,8 +6,9 @@
 
 require('shelljs/global');
 require('colors');
+
 var path = require('path');
-var rmdir = require('rimraf');
+var fs = require('fs-extra');
 
 // Auto-exit on errors
 config.fatal = true;
@@ -34,21 +35,8 @@ echo('-----> Removing build...'.yellow + '(platform: ' + platform + ', arch: ' +
 var dir = __dirname;
 var base = path.normalize(path.join(dir, '..'));
 
-// -- Helpers ------------------------------------------------------------------
-
-var removeDir = function(path) {
-  rmdir(path, {
-    maxBusyTries: 10
-  }, function(error) {
-
-    if (error) {
-      console.log(error);
-    }
-  });
-};
-
 // -- Remove build -------------------------------------------------------------
 
 platform = (platform === 'darwin') ? 'osx' : platform;
 platform = (platform === 'win32') ? 'windows' : platform;
-removeDir(base + '/dist/' + platform + '/' + arch);
+fs.removeSync(base + '/dist/' + platform + '/' + arch);

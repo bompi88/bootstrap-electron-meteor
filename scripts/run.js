@@ -6,8 +6,9 @@
 
 require('shelljs/global');
 require('colors');
-var spawn = require('child_process').spawn;
-var path = require('path');
+
+var spawn = require('child_process').spawn,
+    path = require('path');
 
 // Make sure we don't try to run in production
 process.env.NODE_ENV = 'development';
