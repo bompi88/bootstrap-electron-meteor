@@ -10,7 +10,7 @@ require('colors');
 var path = require('path'),
     AdmZip = require('adm-zip'),
     tar = require('tar'),
-    fs = require('fs'),
+    fs = require('fs-extra'),
     gunzip = require('gunzip-maybe');
 
 var nodeVersion = '0.10.36';
@@ -71,17 +71,6 @@ var unzip = function(file, path, message, zip) {
   }
 };
 
-var removeDir = function(path) {
-  rmdir(path, {
-    maxBusyTries: 10
-  }, function(error) {
-
-    if (error) {
-      console.log(error);
-    }
-  });
-};
-
 // -- Determine the files to fetch ---------------------------------------------
 
 var mongoFile = '';
@@ -138,7 +127,7 @@ if (!test('-f', mongoFile)) {
     unzip(mongoFile, p, 'MongoDB unzipped.'.green, true);
     var outDir = removeExtension(mongoFile);
     mv(base + '/cache/' + outDir + '/*', base + '/cache/' + p);
-    removeDir(base + '/cache/' + outDir);
+    fs.removeSync(base + '/cache/' + outDir);
 
   } else {
     unzip(mongoFile, p, 'MongoDB unzipped.'.green);
