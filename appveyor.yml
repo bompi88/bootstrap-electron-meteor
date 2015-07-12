@@ -1,9 +1,5 @@
-# Test against this version of Node.js
 environment:
   nodejs_version: "0.12"
-
-# clone directory
-clone_folder: C:\gv
 
 branches:
   only:
@@ -29,8 +25,6 @@ install:
 build_script:
   - ps: Start-Sleep -s 5
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
-  - dir "C:\Program Files (x86)\NSIS"
-  - echo %PATH%
   - npm run pack:win
 
 cache:
@@ -40,7 +34,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: 4DLKG48sJhZ2Xbr/ulNR4MUEaVVc/ps6WhTD5OvxgGE5TErcKYH/uuCD3ogw7cfL
-  artifact: "grandview-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32,grandview-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer"
+  artifact: "ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32,ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer"
   draft: false
   prerelease: false
   on:
@@ -50,7 +44,8 @@ artifacts:
 
   # pushing a single file with environment variable in path and "Deployment name" specified
   - path: dist\windows\x86\ElectronMeteor-win32-ia32
-    name: grandview-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32
+    name: ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32
 
   - path: dist\windows\x86\ElectronMeteor Setup.exe
-    name: grandview-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer
+    name: ElectronMeteor-$(APPVEYOR_REPO_TAG_NAME)-win32-ia32-installer
+    type: zip
